@@ -1,0 +1,87 @@
+
+<div class="header bg-translucent-danger py-7 py-lg-8">
+  <div class="container">
+  </div>
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Lista Pagos</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Referencia</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Total</th>
+              <th scope="col">Fecha creacion</th>
+              <th scope="col">Fecha de actualizacion</th>
+              <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let payment of this.payments">
+              <td>
+                {{payment.reference}}
+              </td>
+              <td>
+                {{payment.status}}
+              </td>
+              <td>
+                {{payment.total}}
+              </td>
+              <td>
+                {{payment.createdAt | date }}
+                {{payment.createdAt | date :'shortTime'}}
+              </td>
+              <td>
+                {{payment.updatedAt | date }}
+                {{payment.updatedAt | date :'shortTime'}}
+              </td>
+              <td>
+                <button type="button" class="btn btn-outline-primary" (click)="openModalPaymentDetails(modalDetailPayment,payment?._id)">Detalle</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Dark table -->
+</div>
+
+<ng-template #modalDetailPayment let-modal>
+  <div class="card bg-secondary border-0 mb-0">
+    <div class="modal-header">
+      <h5 class="modal-title" id="example2ModalLabel">Pago</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="card-body px-lg-5 py-lg-5">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Referencia : {{this.paymentInfo?.reference}}</li>
+        <li class="list-group-item">Descripcion : {{this.paymentInfo?.description}}</li>
+        <li class="list-group-item">Total : {{this.paymentInfo?.total}}</li>
+        <li class="list-group-item">Creado : {{this.paymentInfo?.createdAt}}</li>
+        <li class="list-group-item">Actualizado : {{this.paymentInfo?.updatedAt}}</li>
+        <li class="list-group-item">Estado : {{this.paymentInfo?.status }}</li>
+        <li class="list-group-item">Factura : {{this.paymentInfo.bill}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+
