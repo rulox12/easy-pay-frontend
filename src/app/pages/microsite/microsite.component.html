@@ -45,7 +45,9 @@
           {{bill.total}}
         </div>
         <div style="text-align: right">
-          <button class="btn btn-success" (click)="generatePayment(bill._id)">Pagar</button>
+          <button class="btn btn-success"
+                  (click)="generatePayment(bill.reference,bill.total,bill.description,bill._id)">Pagar
+          </button>
         </div>
       </li>
     </ul>

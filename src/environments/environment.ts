@@ -7,6 +7,7 @@ export const environment = {
   email: 'danielpcpx@hotmail.com',
   password: 'lomejor12',
   api: 'http://localhost:3000/api/',
+  urlFrontend: 'http://localhost:4200/#/',
 };
 
 /*

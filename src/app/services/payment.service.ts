@@ -60,4 +60,7 @@ export class PaymentService {
     });
   }
 
+  getPayment(id: string) {
+    return this.http.get<any>(this.url + 'payment/get/' + id);
+  }
 }

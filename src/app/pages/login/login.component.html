@@ -19,6 +19,15 @@
                 </div>
                 <input class="form-control" placeholder="Correo" type="email" formControlName="email">
               </div>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                   class="alert">
+                <div *ngIf="email.errors?.['required']">
+                  El correo es requerido
+                </div>
+                <div *ngIf="email.errors?.['email']">
+                  Debe ser un correo válido
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <div class="input-group input-group-alternative">
@@ -27,9 +36,15 @@
                 </div>
                 <input class="form-control" placeholder="Contraseña" type="password" formControlName="password">
               </div>
+              <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                   class="alert">
+                <div *ngIf="password.errors?.['required']">
+                  La contraseña es requerido
+                </div>
+              </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary my-4">Ingresar</button>
+              <button type="submit" class="btn btn-primary my-4" [disabled]="!this.userLogin.valid">Ingresar</button>
             </div>
           </form>
         </div>

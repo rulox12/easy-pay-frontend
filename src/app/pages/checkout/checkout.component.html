@@ -1,0 +1,21 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container" style="text-align: center">
+    <img alt="Image placeholder" width="200px" src="{{baseUrlForImage + commerce?.logo}}">
+    <br>
+    <br>
+  </div>
+</div>
+<div class="container-fluid mt--3">
+  <div class="container">
+    <ul class="list-group">
+      <li class="list-group-item">Referencia: {{payment?.reference}}</li>
+      <li class="list-group-item">Descripción: {{payment?.description}}</li>
+      <li class="list-group-item">Estado:
+        <span class="badge rounded-pill text-bg-warning">{{payment?.status}}</span>
+      </li>
+      <li class="list-group-item">Total: {{payment?.total}}</li>
+      <li class="list-group-item">Fecha: {{payment?.createdAt}}</li>
+    </ul>
+  </div>
+</div>
+

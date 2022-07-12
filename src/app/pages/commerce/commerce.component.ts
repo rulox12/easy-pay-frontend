@@ -15,6 +15,7 @@ import {environment} from '../../../environments/environment';
 
 export class CommerceComponent implements OnInit {
   public baseUrlForImage = environment.api + 'commerce/getImage/';
+  urlFrontend = environment.urlFrontend;
 
   commerce = new FormGroup({
     name: new FormControl(''),
@@ -59,7 +60,7 @@ export class CommerceComponent implements OnInit {
   }
 
   openQRModal(content, commerce) {
-    this.myAngularxQrCode = 'http://localhost:4200/#/microsite?microsite=' + commerce.nit;
+    this.myAngularxQrCode = this.urlFrontend + 'microsite?microsite=' + commerce.nit;
     this.openModal(content);
   }
 

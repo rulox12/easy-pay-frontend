@@ -9,10 +9,10 @@ import {PaymentService} from '../../services/payment.service';
 
 @Component({
   selector: 'app-commerce',
-  templateUrl: './microsite.component.html',
-  styleUrls: ['./microsite.component.scss']
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.scss']
 })
-export class MicrositeComponent implements OnInit {
+export class CheckoutComponent implements OnInit {
 
   constructor(
     public activatedRouter: ActivatedRoute,
@@ -27,6 +27,9 @@ export class MicrositeComponent implements OnInit {
     };
   }
 
+  private reference: any;
+  payment: any;
+  private code: any;
   nit: string;
   commerce;
   document: any;
@@ -38,42 +41,19 @@ export class MicrositeComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRouter.queryParams.subscribe(params => {
-      this.nit = params.microsite;
+      this.code = params.code;
+      this.nit = params.commerce;
     });
-    this.commerceService.getCommerceForNit(this.nit).subscribe((data) => {
-      this.commerce = data;
+    this.paymentService.getPayment(this.code).subscribe((data) => {
+      this.payment = data.payment;
     }, err => {
       this.openAlert('info', 'Ocurrió un error inesperado');
     });
-  }
-
-  searchBill(modal) {
-    this.billService.searchBillForDocument(this.document, this.commerce._id).subscribe(response => {
-      this.bills = response;
-      this.openModal(modal);
-    }, error => {
-      this.openAlert('info', 'No se encontraron facturas');
-    });
-  }
-
-  generatePayment(reference: string, total: string, description: string, id: string) {
-    const data = {
-      reference: reference,
-      total: total,
-      description: description,
-      bill: id,
-    };
-
-    this.paymentService.generatePayment(data).then(response => {
-      if (response) {
-        this.modalService.dismissAll();
-        const returnUrl = `${this.urlFrontend + 'checkout?code=' + response.payment._id + '&commerce=' + this.nit}`;
-        console.log(returnUrl);
-        return;
-        window.open(`https://checkout.wompi.co/p/?public-key=pub_test_NoArfbn1dTCcN61fSNV5cx38fVCc88bO&currency=COP&amount-in-cents=${total + '00'}&reference=${reference}&redirect-url=${returnUrl}`);
-      }
-    }, error => {
-      this.openAlert('warning', 'Error al generar el pago');
+    this.commerceService.getCommerceForNit(this.nit).subscribe((data) => {
+      this.commerce = data;
+      console.log(this.commerce);
+    }, err => {
+      this.openAlert('info', 'Ocurrió un error inesperado');
     });
   }
 
