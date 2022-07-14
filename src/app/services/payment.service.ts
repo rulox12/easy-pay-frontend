@@ -63,4 +63,8 @@ export class PaymentService {
   getPayment(id: string) {
     return this.http.get<any>(this.url + 'payment/get/' + id);
   }
+
+  getPaymentByTransaction(id: string) {
+    return this.http.get<any>(this.url + 'payment/get-payment-by-transaction/' + id);
+  }
 }

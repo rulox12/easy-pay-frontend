@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {ModalDismissReasons, NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {PaymentService} from '../../services/payment.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-commerce',
@@ -13,13 +14,16 @@ import {PaymentService} from '../../services/payment.service';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+  private transactionId: any;
 
   constructor(
     public activatedRouter: ActivatedRoute,
     private commerceService: CommerceService,
     private billService: BillsService,
     private modalService: NgbModal,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private spinner: NgxSpinnerService,
+
   ) {
     this.modalOptions = {
       backdrop: 'static',
@@ -40,18 +44,17 @@ export class CheckoutComponent implements OnInit {
   urlFrontend = environment.urlFrontend;
 
   ngOnInit() {
+    this.spinner.show();
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 5000);
     this.activatedRouter.queryParams.subscribe(params => {
-      this.code = params.code;
-      this.nit = params.commerce;
+      this.transactionId = params.id;
     });
-    this.paymentService.getPayment(this.code).subscribe((data) => {
+    this.paymentService.getPaymentByTransaction(this.transactionId).subscribe((data) => {
       this.payment = data.payment;
-    }, err => {
-      this.openAlert('info', 'Ocurrió un error inesperado');
-    });
-    this.commerceService.getCommerceForNit(this.nit).subscribe((data) => {
-      this.commerce = data;
-      console.log(this.commerce);
+      this.commerce = data.payment.bill.commerce;
     }, err => {
       this.openAlert('info', 'Ocurrió un error inesperado');
     });

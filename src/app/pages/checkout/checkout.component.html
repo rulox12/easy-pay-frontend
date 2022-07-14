@@ -1,4 +1,4 @@
-<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-warning pb-8 pt-5 pt-md-8">
   <div class="container" style="text-align: center">
     <img alt="Image placeholder" width="200px" src="{{baseUrlForImage + commerce?.logo}}">
     <br>
@@ -14,8 +14,10 @@
         <span class="badge rounded-pill text-bg-warning">{{payment?.status}}</span>
       </li>
       <li class="list-group-item">Total: {{payment?.total}}</li>
-      <li class="list-group-item">Fecha: {{payment?.createdAt}}</li>
+      <li class="list-group-item">
+        Fecha: {{payment?.createdAt | date }} {{ payment?.createdAt |date :'shortTime' }}</li>
     </ul>
   </div>
+  <ngx-spinner bdColor="rgb(106, 90, 205)"></ngx-spinner>
 </div>
 

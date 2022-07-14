@@ -1,5 +1,5 @@
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
@@ -11,6 +11,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppRoutingModule} from './app.routing';
 import {ComponentsModule} from './components/components.module';
 import {QRCodeModule} from 'angularx-qrcode';
+import {NgxSpinnerModule} from 'ngx-spinner';
+
 
 @NgModule({
   imports: [
@@ -22,7 +24,8 @@ import {QRCodeModule} from 'angularx-qrcode';
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    QRCodeModule
+    QRCodeModule,
+    NgxSpinnerModule
   ],
   declarations: [
     AppComponent,
@@ -30,7 +33,7 @@ import {QRCodeModule} from 'angularx-qrcode';
     AuthLayoutComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

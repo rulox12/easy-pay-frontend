@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
+  dev: true,
   email: 'danielpcpx@hotmail.com',
   password: 'lomejor12',
   api: 'http://localhost:3000/api/',
-  urlFrontend: 'http://localhost:4200/#/',
+  urlFrontend: 'http://localhost:4200/',
 };
 
 /*

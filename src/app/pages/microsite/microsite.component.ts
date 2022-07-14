@@ -67,10 +67,10 @@ export class MicrositeComponent implements OnInit {
     this.paymentService.generatePayment(data).then(response => {
       if (response) {
         this.modalService.dismissAll();
-        const returnUrl = `${this.urlFrontend + 'checkout?code=' + response.payment._id + '&commerce=' + this.nit}`;
-        console.log(returnUrl);
-        return;
-        window.open(`https://checkout.wompi.co/p/?public-key=pub_test_NoArfbn1dTCcN61fSNV5cx38fVCc88bO&currency=COP&amount-in-cents=${total + '00'}&reference=${reference}&redirect-url=${returnUrl}`);
+        localStorage.setItem('codePayment', response.payment._id);
+        localStorage.setItem('commercePayment', this.nit);
+        const returnUrl = this.urlFrontend + 'checkout';
+        window.open(`https://checkout.wompi.co/p/?public-key=pub_test_NoArfbn1dTCcN61fSNV5cx38fVCc88bO&currency=COP&amount-in-cents=${total + '00'}&reference=${response.payment._id}&redirect-url=${returnUrl}`);
       }
     }, error => {
       this.openAlert('warning', 'Error al generar el pago');
