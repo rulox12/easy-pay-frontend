@@ -4,6 +4,6 @@ export const environment = {
   password: 'lomejor12',
   // api: 'http://localhost:3000/api/',
   // urlFrontend: 'http://localhost:4200/',
-  api: 'https://easypayuco.herokuapp.com/api/',
-  urlFrontend: 'https://rulox12.github.io/easy-pay-frontend/#/',
+  // api: 'https://easypayuco.herokuapp.com/api/',
+  urlFrontend: 'https://rulox12.github.io/easy-pay-frontend/',
 };

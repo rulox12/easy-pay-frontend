@@ -65,7 +65,7 @@
               </td>
               <td>
                 <button type="button" class="btn btn-info" (click)="openQRModal(modalFormQR,commerce)">QR</button>
-                <button type="button" class="btn btn-outline-primary">Detalle</button>
+                <button type="button" class="btn btn-outline-primary" (click)="openUpdateModal(commerce,modalFormUpdate)">Actualizar</button>
               </td>
             </tr>
             </tbody>
@@ -104,21 +104,89 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="description">Descripcion</label>
+          <textarea class="form-control" formControlName="description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
           <label for="logo">Seleccione logo</label>
           <div class="input-group input-group-merge input-group-alternative">
-            <input type="file" class="form-control" id="logo" lang="en" formControlName="logo" (change)="onFileChange($event)">
+            <input type="file" class="form-control" lang="en" formControlName="logo" (change)="onFileChange($event)">
           </div>
         </div>
         <div class="form-group">
-          <label for="description">Descripcion</label>
-          <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
-        </div>
-        <div class="form-group">
           <label for="color">Color</label>
-          <input class="form-control" id="color" formControlName="color" type="color">
+          <input class="form-control" formControlName="color" type="color">
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary my-4">Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalFormUpdate let-modal>
+  <div class="card bg-secondary border-0 mb-0">
+    <div class="modal-header">
+      <h5 class="modal-title" id="updateModalLabel">Actualizar comercio</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="card-body px-lg-5 py-lg-5">
+      <form role="form" (ngSubmit)="submitEditCommerce($event)" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="companyEditForm.name"
+            name="name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Descripcion</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="companyEditForm.description"
+            name="description"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="nit">Nit</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nit"
+            [(ngModel)]="companyEditForm.nit"
+            name="nit"
+          />
+        </div>
+        <div class="form-group">
+          <label for="color">Color</label>
+          <input
+            type="color"
+            class="form-control"
+            id="color"
+            [(ngModel)]="companyEditForm.color"
+            name="color"
+          />
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="active"
+            [(ngModel)]="companyEditForm.active"
+            name="active"
+          />
+          <label class="form-check-label" for="active">Estado</label>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary my-4">Actualizar</button>
         </div>
       </form>
     </div>

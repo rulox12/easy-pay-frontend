@@ -25,7 +25,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     AppRoutingModule,
     ReactiveFormsModule,
     QRCodeModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   declarations: [
     AppComponent,

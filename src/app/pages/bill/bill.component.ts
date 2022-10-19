@@ -33,6 +33,7 @@ export class BillComponent implements OnInit {
   bills: any;
   billInfo: any;
   billSelectedFormSendEmail: any;
+  billEditForm: any;
 
   constructor(
     private commerceService: CommerceService,
@@ -138,5 +139,35 @@ export class BillComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  submitEditBill(event) {
+    this.billService.updateBillService(this.billEditForm).subscribe(async response => {
+      if (response) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'Factura editada con exito',
+        }).then(() => {
+          this.modalService.dismissAll();
+          this.router.navigateByUrl('/bill').then(r => {
+            window.location.reload();
+          });
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Error',
+          text: 'Error al intentar editar la factura',
+        });
+      }
+    });
+  }
+
+  openModalEditBill(bill: any, modalUpdateBill) {
+    this.billEditForm = bill;
+    this.billEditForm.commerce = this.billEditForm.commerce._id;
+    this.openModal(modalUpdateBill);
+
   }
 }

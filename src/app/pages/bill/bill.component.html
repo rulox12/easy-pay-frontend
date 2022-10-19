@@ -3,7 +3,8 @@
     <div class="header-body text-center">
       <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
         <li class="nav-item">
-          <button type="button" (click)="openModalCreatedBill(modalFormCreated)" class="btn btn-block btn-success" data-toggle="modal"
+          <button type="button" (click)="openModalCreatedBill(modalFormCreated)" class="btn btn-block btn-success"
+                  data-toggle="modal"
                   data-target="#modal-form">Crear Factura
           </button>
         </li>
@@ -56,11 +57,15 @@
                 {{bill.createdAt | date :'shortTime'}}
               </td>
               <td>
-                <button type="button" class="btn btn-outline-info">Editar</button>
                 <button type="button" class="btn btn-outline-primary"
                         (click)="openModalDetailBill(modalDetailBill,bill?._id)">Detalle
                 </button>
-                <button type="button" class="btn btn-outline-success"
+
+                <button *ngIf="bill?.status === 'Pending'" type="button" class="btn btn-outline-info"
+                        (click)="openModalEditBill(bill,modalUpdateBill)">
+                  Editar
+                </button>
+                <button *ngIf="bill?.status === 'Pending'" type="button" class="btn btn-outline-success"
                         (click)="openModalSendEmail(modalSendEmail,bill?._id)">Enviar Correo
                 </button>
               </td>
@@ -90,7 +95,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-email-83"></i></span>
             </div>
-            <input class="form-control" placeholder="Reference" type="text" id="reference" formControlName="reference">
+            <input class="form-control" placeholder="Reference" type="text" formControlName="reference">
           </div>
           <div *ngIf="reference.invalid && (reference.dirty || reference.touched)"
                class="alert alert-danger">
@@ -210,6 +215,71 @@
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary my-4">Enviar correo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalUpdateBill let-modal>
+  <div class="card bg-secondary border-0 mb-0">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modalUpdateBill">Actualizar</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="card-body px-lg-5 py-lg-5">
+      <form role="form" (ngSubmit)="submitEditBill($event)">
+        <div class="form-group">
+          <label for="reference">Referencia</label>
+          <input
+            type="text"
+            class="form-control"
+            id="reference"
+            [(ngModel)]="billEditForm.reference"
+            name="reference"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="billEditForm.description"
+            name="description"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="total">Total</label>
+          <input
+            type="number"
+            class="form-control"
+            id="total"
+            [(ngModel)]="billEditForm.total"
+            name="total"
+          />
+        </div>
+        <div class="form-group">
+          <label for="document">Documento</label>
+          <input
+            type="number"
+            class="form-control"
+            id="document"
+            [(ngModel)]="billEditForm.document"
+            name="document"
+          />
+        </div>
+        <div class="form-group">
+          <label for="commerce">Comercio</label>
+          <select id="commerce" class="form-control" name="commerce" required [(ngModel)]="billEditForm.commerce">
+            <option *ngFor="let commerce of this.commerces" value="{{commerce._id}}">{{commerce.name}}</option>
+          </select>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary my-4">Actualizar</button>
         </div>
       </form>
     </div>

@@ -12,14 +12,17 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-
+  userEditForm;
   user = new FormGroup({
     name: new FormControl(''),
     surname: new FormControl(''),
+    documentType: new FormControl(''),
+    document: new FormControl(''),
+    phone: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
-    active: new FormControl(''),
-    isAdmin: new FormControl(''),
+    active: new FormControl(false),
+    isAdmin: new FormControl(false),
     commerce: new FormControl(''),
   });
 
@@ -45,12 +48,10 @@ export class UserComponent implements OnInit {
     this.userService.getAllUsers().then(data => {
       this.users = data;
     }, error => {
-      console.log(error);
     });
     this.commerceService.getAllCommerce().then(data => {
       this.commerces = data;
     }, error => {
-      console.log(error);
     });
   }
 
@@ -90,7 +91,7 @@ export class UserComponent implements OnInit {
       if (user) {
         Swal.fire({
           icon: 'success',
-          title: 'Perfecto',
+          title: 'Correcto',
           text: 'Usuario creado con exito',
         }).then(() => {
           this.modalService.dismissAll();
@@ -100,12 +101,47 @@ export class UserComponent implements OnInit {
         });
       }
     }, err => {
-      console.log(err);
       Swal.fire({
         icon: 'warning',
         title: 'Uppsss',
         text: err.message,
       });
     });
+  }
+
+  openModalUserEdit(content, user) {
+    this.userEditForm = user;
+    this.modalService.open(content, this.modalOptions).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  submitEditUser(e) {
+    this.userService.updateUserService(this.userEditForm).subscribe(async response => {
+      if (response) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'Usuario editado con exito',
+        }).then(() => {
+          this.modalService.dismissAll();
+          this.router.navigateByUrl('/user').then(r => {
+            window.location.reload();
+          });
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Error',
+          text: 'Error al intentar editar el usuario',
+        });
+      }
+    });
+  }
+
+  email() {
+    return this.userEditForm.get('email');
   }
 }

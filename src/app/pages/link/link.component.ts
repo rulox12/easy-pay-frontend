@@ -1,18 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {CommerceService} from '../../services/commerce.service';
-import {BillsService} from '../../services/bills.service';
-import {environment} from '../../../environments/environment';
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute} from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {ModalDismissReasons, NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import {environment} from '../../../environments/environment';
+import {BillsService} from '../../services/bills.service';
 import {PaymentService} from '../../services/payment.service';
 
 @Component({
   selector: 'app-commerce',
-  templateUrl: './microsite.component.html',
-  styleUrls: ['./microsite.component.scss']
+  templateUrl: './link.component.html',
+  styleUrls: ['./link.component.scss']
 })
-export class MicrositeComponent implements OnInit {
+
+export class LinkComponent implements OnInit {
 
   constructor(
     public activatedRouter: ActivatedRoute,
@@ -99,5 +100,4 @@ export class MicrositeComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-
 }

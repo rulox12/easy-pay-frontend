@@ -57,4 +57,8 @@ export class UserService {
       });
     });
   }
+
+  updateUserService(user) {
+    return this.http.put<any>(this.url + 'user/update-user/' + user._id, user);
+  }
 }

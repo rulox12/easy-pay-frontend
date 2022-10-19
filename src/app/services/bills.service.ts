@@ -81,4 +81,13 @@ export class BillsService {
       });
     });
   }
+
+  updateBillService(bill: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': sessionStorage.getItem('token')
+    });
+
+    return this.http.post<any>(this.url + 'bill/update-bill/' + bill._id, bill, {headers});
+  }
 }

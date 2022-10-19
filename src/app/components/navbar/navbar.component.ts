@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('user'));
-    console.log(this.user.name);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
   }
 

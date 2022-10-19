@@ -54,4 +54,12 @@ export class CommerceService {
 
     return this.http.get<any>(this.url + 'commerce/' + nit, {headers});
   }
+
+  updateCommerceService(commerce) {
+    const headers = new HttpHeaders({
+      'Authorization': sessionStorage.getItem('token')
+    });
+
+    return this.http.post<any>(this.url + 'commerce/update-commerce/' + commerce._id, commerce, {headers});
+  }
 }

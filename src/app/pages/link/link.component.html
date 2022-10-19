@@ -1,0 +1,57 @@
+<div class="header py-7 py-lg-8">
+  <div class="container" style="text-align: center">
+    <img alt="Image placeholder" width="200px" src="{{baseUrlForImage + commerce?.logo}}">
+    <br>
+    <br>
+  </div>
+  <div class="container" *ngIf="commerce">
+    <h4 class="display-5" style="text-align: justify;color:#414141">{{this.commerce?.description}}</h4>
+    <br>
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Documento"
+                   [(ngModel)]="this.document">
+          </div>
+          <div class="text-center">
+            <button (click)="searchBill(modalListBill)" class="btn btn-lg btn-block"
+                    style="color:white;background-color: {{this.commerce?.color}}"
+                    type="submit">Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #modalListBill let-modal>
+  <div class="card bg-secondary border-0 mb-0">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal">Lista de facturas</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <ul class="list-group" *ngFor="let bill of this.bills">
+      <li class="list-group-item">
+        <div style="text-align: left">
+          <span style="font-weight: bold">Reference: </span>
+          {{bill.reference}}
+          <br>
+          <span style="font-weight: bold">Total: </span>
+          {{bill.total}}
+        </div>
+        <div style="text-align: right">
+          <button class="btn btn-success"
+                  (click)="generatePayment(bill.reference,bill.total,bill.description,bill._id)">Pagar
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+

@@ -8,6 +8,7 @@ import {RegisterComponent} from '../../pages/register/register.component';
 import {MicrositeComponent} from '../../pages/microsite/microsite.component';
 import {CheckoutComponent} from '../../pages/checkout/checkout.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {LinkComponent} from '../../pages/link/link.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     LoginComponent,
     RegisterComponent,
     MicrositeComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LinkComponent
   ]
 })
 export class AuthLayoutModule {

@@ -30,6 +30,7 @@ export class CommerceComponent implements OnInit {
   modalOptions: NgbModalOptions;
   closeResult: string;
   myAngularxQrCode: any;
+  companyEditForm: any;
 
   constructor(
     private commerceService: CommerceService,
@@ -108,5 +109,33 @@ export class CommerceComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  submitEditCommerce() {
+    this.commerceService.updateCommerceService(this.companyEditForm).subscribe(async response => {
+      if (response) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'Comerce editado con exito',
+        }).then(() => {
+          this.modalService.dismissAll();
+          this.router.navigateByUrl('/commerce').then(r => {
+            window.location.reload();
+          });
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Error',
+          text: 'Error al intentar editar el usuario',
+        });
+      }
+    });
+  }
+
+  openUpdateModal(company, content) {
+    this.companyEditForm = company;
+    this.openModal(content);
   }
 }

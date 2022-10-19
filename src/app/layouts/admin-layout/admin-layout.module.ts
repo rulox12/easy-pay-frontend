@@ -28,7 +28,7 @@ import {PaymentComponent} from '../../pages/payment/payment.component';
         NgbModule,
         ClipboardModule,
         ReactiveFormsModule,
-        QRCodeModule
+        QRCodeModule,
     ],
   declarations: [
     DashboardComponent,
