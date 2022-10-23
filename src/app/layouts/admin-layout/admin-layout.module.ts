@@ -18,18 +18,20 @@ import {BillComponent} from '../../pages/bill/bill.component';
 import {UserComponent} from '../../pages/user/user.component';
 import {QRCodeModule} from 'angularx-qrcode';
 import {PaymentComponent} from '../../pages/payment/payment.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(AdminLayoutRoutes),
-        FormsModule,
-        HttpClientModule,
-        NgbModule,
-        ClipboardModule,
-        ReactiveFormsModule,
-        QRCodeModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(AdminLayoutRoutes),
+    FormsModule,
+    HttpClientModule,
+    NgbModule,
+    ClipboardModule,
+    ReactiveFormsModule,
+    QRCodeModule,
+    NgxSpinnerModule
+  ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,

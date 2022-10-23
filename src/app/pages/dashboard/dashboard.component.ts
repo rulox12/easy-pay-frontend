@@ -1,34 +1,47 @@
 import {Component, OnInit} from '@angular/core';
-import Chart from 'chart.js';
-
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from '../../variables/charts';
+import {StatisticService} from '../../services/satistics.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public data: any;
-  public salesChart;
-  public clicked = true;
-  public clicked1 = false;
+    countBills: any;
+    countPayments: any;
+    countCommerces: any;
+    approvedPayments: any;
+    rejectedPayments: any;
+    pendingPayments: any;
 
-  constructor() {
-  }
+    constructor(
+        private statisticService: StatisticService,
+        private spinner: NgxSpinnerService
+    ) {
+    }
 
-  ngOnInit() {
-    const chartSales = document.getElementById('chart-sales');
+    ngOnInit() {
+        this.spinner.show();
+        this.getInitialData(12);
+    }
 
-    this.salesChart = new Chart(chartSales, {
-      type: 'line',
-      options: chartExample1.options,
-      data: chartExample1.data
-    });
-  }
+    filterData(months) {
+        this.spinner.show();
+        this.getInitialData(months);
+    }
+
+    getInitialData(months: number) {
+        this.statisticService.getAllStatistics(months).then(response => {
+            if (response) {
+                this.countBills = response['bills'];
+                this.countPayments = response['payments'];
+                this.countCommerces = response['commerces'];
+                this.rejectedPayments = response['rejectedPayments'];
+                this.pendingPayments = response['pendingPayments'];
+                this.approvedPayments = response['approvedPayments'];
+                this.spinner.hide();
+            }
+        });
+    }
 }

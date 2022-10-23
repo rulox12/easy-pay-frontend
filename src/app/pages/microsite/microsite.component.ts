@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CommerceService} from '../../services/commerce.service';
 import {BillsService} from '../../services/bills.service';
@@ -13,6 +13,8 @@ import {PaymentService} from '../../services/payment.service';
   styleUrls: ['./microsite.component.scss']
 })
 export class MicrositeComponent implements OnInit {
+  @ViewChild('modalListBill') modalListBill: any;
+  identification: any;
 
   constructor(
     public activatedRouter: ActivatedRoute,
@@ -39,17 +41,26 @@ export class MicrositeComponent implements OnInit {
   ngOnInit() {
     this.activatedRouter.queryParams.subscribe(params => {
       this.nit = params.microsite;
+      this.identification = params.identification;
     });
     this.commerceService.getCommerceForNit(this.nit).subscribe((data) => {
-      this.commerce = data;
+      if (data) {
+        this.commerce = data;
+        if (this.identification) {
+          this.document = this.identification;
+          this.searchBill(this.modalListBill);
+        }
+      }
     }, err => {
       this.openAlert('info', 'Ocurrió un error inesperado');
     });
   }
 
   searchBill(modal) {
+    console.log(modal);
     this.billService.searchBillForDocument(this.document, this.commerce._id).subscribe(response => {
       this.bills = response;
+      console.log(this.bills );
       this.openModal(modal);
     }, error => {
       this.openAlert('info', 'No se encontraron facturas');
