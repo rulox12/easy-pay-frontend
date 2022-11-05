@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {ModalDismissReasons, NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {PaymentService} from '../../services/payment.service';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-commerce',
@@ -21,7 +22,8 @@ export class MicrositeComponent implements OnInit {
     private commerceService: CommerceService,
     private billService: BillsService,
     private modalService: NgbModal,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private spinner: NgxSpinnerService
   ) {
     this.modalOptions = {
       backdrop: 'static',
@@ -57,12 +59,13 @@ export class MicrositeComponent implements OnInit {
   }
 
   searchBill(modal) {
-    console.log(modal);
+    this.spinner.show();
     this.billService.searchBillForDocument(this.document, this.commerce._id).subscribe(response => {
       this.bills = response;
-      console.log(this.bills );
+      this.spinner.hide();
       this.openModal(modal);
     }, error => {
+      this.spinner.hide();
       this.openAlert('info', 'No se encontraron facturas');
     });
   }

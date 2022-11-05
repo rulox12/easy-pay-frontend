@@ -35,22 +35,50 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <ul class="list-group" *ngFor="let bill of this.bills">
-      <li class="list-group-item">
-        <div style="text-align: left">
-          <span style="font-weight: bold">Reference: </span>
-          {{bill.reference}}
-          <br>
-          <span style="font-weight: bold">Total: </span>
-          {{bill.total}}
-        </div>
-        <div style="text-align: right">
-          <button class="btn btn-success"
-                  (click)="generatePayment(bill.reference,bill.total,bill.description,bill._id)">Pagar
-          </button>
-        </div>
-      </li>
-    </ul>
+    <div class="table-responsive">
+      <div>
+        <table class="table align-items-center" style="padding: 4px">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col" class="sort" data-sort="budget">Valor</th>
+            <th scope="col" class="sort" data-sort="status">Referencia</th>
+            <th scope="col">Estado</th>
+            <th scope="col" class="sort" data-sort="completion">Acción</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody class="list">
+          <tr *ngFor="let bill of this.bills">
+            <td class="budget">
+              {{bill.total}}
+            </td>
+            <td class="budget">
+              {{bill.reference}}
+            </td>
+            <td>
+          <span class="badge badge-dot mr-4" *ngIf="bill.status == 'Pending' ">
+            <i class="bg-warning"></i>
+            <span class="status">Pendiente</span>
+          </span>
+              <span class="badge badge-dot mr-4" *ngIf="bill.status == 'APPROVED' ">
+            <i class="bg-success"></i>
+            <span class="status">Aprobado</span>
+            </span>
+              <span class="badge badge-dot mr-4" *ngIf="bill.status == 'DECLINED' ">
+            <i class="bg-danger"></i>
+            <span class="status">Rechazado</span>
+            </span>
+            </td>
+            <td>
+              <button class="btn btn-success" *ngIf="bill.status == 'Pending' "
+                      (click)="generatePayment(bill.reference,bill.total,bill.description,bill._id)">Pagar
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </ng-template>
 

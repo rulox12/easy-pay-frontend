@@ -20,13 +20,12 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
     });
-
   }
 
   ngOnDestroy() {
-    var html = document.getElementsByTagName('html')[0];
+    const html = document.getElementsByTagName('html')[0];
     html.classList.remove('auth-layout');
-    var body = document.getElementsByTagName('body')[0];
+    const body = document.getElementsByTagName('body')[0];
     body.classList.remove('bg-default');
   }
 }

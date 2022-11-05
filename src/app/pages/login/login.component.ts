@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public userService: UserService,
     public router: Router,
+    private spinner: NgxSpinnerService
   ) {
   }
 
@@ -29,14 +31,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(): any {
+    this.spinner.show();
     if (this.userLogin.valid) {
       this.userService.signIn(this.userLogin.value).subscribe(data => {
         if (data) {
           sessionStorage.setItem('user', JSON.stringify(data.user));
           sessionStorage.setItem('token', JSON.stringify(data.token).replace(/['"]+/g, ''));
+          this.spinner.hide();
           this.router.navigateByUrl('/dashboard ');
         }
       }, err => {
+        this.spinner.hide();
         console.log(err);
         Swal.fire({
           icon: 'warning',

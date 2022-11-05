@@ -9,7 +9,7 @@
   <div class="container">
     <ul class="list-group">
       <li class="list-group-item">Referencia: {{payment?.reference}}</li>
-      <li class="list-group-item">Descripción: {{payment?.description}}</li>
+      <li class="list-group-item" *ngIf="payment?.description">Descripción: {{payment?.description}}</li>
       <li class="list-group-item">Estado:
         <span class="badge rounded-pill text-bg-warning">{{payment?.status}}</span>
       </li>
