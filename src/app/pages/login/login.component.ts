@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
