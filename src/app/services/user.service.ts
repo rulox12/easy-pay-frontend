@@ -61,4 +61,16 @@ export class UserService {
   updateUserService(user) {
     return this.http.put<any>(this.url + 'user/update-user/' + user._id, user);
   }
+
+  canResetPassword(token) {
+    return this.http.get<any>(this.url + 'user/can-email-reset-password/' + token);
+  }
+
+  resetPassword(params) {
+    return this.http.post<any>(this.url + 'user/reset-password/', params);
+  }
+
+  sendEmailResetPassword(email: string) {
+    return this.http.get<any>(this.url + 'user/send-email-reset-password/' + email);
+  }
 }

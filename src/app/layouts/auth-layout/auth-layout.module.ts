@@ -9,6 +9,7 @@ import {MicrositeComponent} from '../../pages/microsite/microsite.component';
 import {CheckoutComponent} from '../../pages/checkout/checkout.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {LinkComponent} from '../../pages/link/link.component';
+import {PasswordComponent} from '../../pages/password/password.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {LinkComponent} from '../../pages/link/link.component';
     RegisterComponent,
     MicrositeComponent,
     CheckoutComponent,
+    PasswordComponent,
     LinkComponent
   ]
 })

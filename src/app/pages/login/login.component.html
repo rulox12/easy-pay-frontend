@@ -44,6 +44,7 @@
                 </div>
               </div>
             </div>
+            <a></a>
             <div class="text-center">
               <button type="submit" class="btn btn-primary my-4" [disabled]="!this.userLogin.valid">Ingresar</button>
             </div>
@@ -51,10 +52,10 @@
         </div>
       </div>
       <div class="row mt-3">
-        <!--
        <div class="col-6">
-        <a href="javascript:void(0)" class="text-light"><small>Forgot password?</small></a>
+        <a href="javascript:void(0)" (click)="openResetPasswordModal(modalFormResetPassword)" class="text-primary"><small>¿ Olvidaste la contraseña?</small></a>
        </div>
+        <!--
        <div class="col-6 text-right">
          <a href="javascript:void(0)" class="text-light"><small>Crear nueva cuenta</small></a>
        </div>
@@ -64,3 +65,32 @@
   </div>
   <ngx-spinner bdColor="rgba(51,51,51,0.8)"></ngx-spinner>
 </div>
+
+<ng-template #modalFormResetPassword let-modal>
+  <div class="card bg-secondary border-0 mb-0">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="card-body px-lg-5 py-lg-5">
+      <h4 style="text-align: justify">Por favor, ingrese el correo electrónico registrado al cual se le enviara link para el cambio de contraseña</h4>
+      <br>
+      <form role="form" (ngSubmit)="resetPassword($event)" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Correo electronico</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="emailResetPassword"
+            name="name"
+          />
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary my-4">Resetear contraseña</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
