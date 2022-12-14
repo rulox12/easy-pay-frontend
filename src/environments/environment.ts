@@ -7,7 +7,7 @@ export const environment = {
   dev: true,
   email: 'danielpcpx@hotmail.com',
   password: 'lomejor12',
-  api: 'http://localhost:3000/api/',
+  api: 'https://easypayuco.fly.dev/api/',
   // api: 'https://easypayuco.herokuapp.com/api/',
   urlFrontend: 'http://localhost:4200/',
 };
